@@ -39,11 +39,15 @@ namespace KeyValueStore
             string dir = @"./level1/level2/";
             string fileName = "filehausen";
             string fullPath = dir + fileName;
-            if (!Directory.Exists(dir))
+            try
+            {
+                File.WriteAllLines(fullPath, new List<string> { s });
+            }
+            catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(dir);
+                File.WriteAllLines(fullPath, new List<string> { s });
             }
-            File.WriteAllLines(fullPath, new List<string> { s });
         }
     }
 }
