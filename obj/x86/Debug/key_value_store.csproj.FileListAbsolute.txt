@@ -1,6 +1,0 @@
-/home/q/GITLAB/key_value_store/key_value_store/bin/Debug/key_value_store.exe
-/home/q/GITLAB/key_value_store/key_value_store/bin/Debug/key_value_store.pdb
-/home/q/GITLAB/key_value_store/key_value_store/obj/x86/Debug/key_value_store.csprojAssemblyReference.cache
-/home/q/GITLAB/key_value_store/key_value_store/obj/x86/Debug/key_value_store.csproj.CoreCompileInputs.cache
-/home/q/GITLAB/key_value_store/key_value_store/obj/x86/Debug/key_value_store.exe
-/home/q/GITLAB/key_value_store/key_value_store/obj/x86/Debug/key_value_store.pdb
