@@ -39,14 +39,15 @@ namespace KeyValueStore
             string dir = string.Format("./keyvaluestore/{0}/{1}/", key.Substring(0,2), key.Substring(2,2));
             string fileName = key;
             string fullPath = dir + fileName;
+            string fullValue = value + Environment.NewLine;
             try
             {
-                File.WriteAllText(fullPath, value + Environment.NewLine);
+                File.WriteAllText(fullPath, fullValue);
             }
             catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(dir);
-                File.WriteAllText(fullPath, value + Environment.NewLine);
+                File.WriteAllText(fullPath, fullValue);
             }
         }
     }
