@@ -13,7 +13,7 @@ namespace KeyValueStore
             {
                 var x = Console.ReadLine();
                 var mx = CreateMD5(x);
-                Save(mx);
+                Save(mx, mx);
                 Console.WriteLine(mx);
             }
         }
@@ -34,19 +34,19 @@ namespace KeyValueStore
             }
         }
 
-        public static void Save(string s)
+        public static void Save(string key, string value)
         {
-            string dir = @"./level1/level2/";
-            string fileName = "filehausen";
+            string dir = string.Format("./keyvaluestore/{0}/{1}/", key.Substring(0,2), key.Substring(2,2));
+            string fileName = key;
             string fullPath = dir + fileName;
             try
             {
-                File.WriteAllLines(fullPath, new List<string> { s });
+                File.WriteAllText(fullPath, value + Environment.NewLine);
             }
             catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(dir);
-                File.WriteAllLines(fullPath, new List<string> { s });
+                File.WriteAllText(fullPath, value + Environment.NewLine);
             }
         }
     }
