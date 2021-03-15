@@ -36,12 +36,12 @@ namespace KeyValueStore
 
         public static void Save(string s)
         {
-            string folder = @"./level1/level2/";
+            string dir = @"./level1/level2/";
             string fileName = "filehausen";
-            string fullPath = folder + fileName;
-            if (!Directory.Exists(folder))
+            string fullPath = dir + fileName;
+            if (!Directory.Exists(dir))
             {
-                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(dir);
             }
             File.WriteAllLines(fullPath, new List<string> { s });
         }
