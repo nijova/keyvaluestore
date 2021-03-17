@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using System.IO;
-using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.SelfHost;
 
 namespace KeyValueStore
 {
@@ -9,13 +9,14 @@ namespace KeyValueStore
     {
         public static void Main(string[] args)
         {
-            while(true)
-            {
-                var x = Console.ReadLine();
-                var mx = CreateMD5(x);
-                Save(mx, mx);
-                Console.WriteLine(mx);
-            }
+            string baseAddress = "http://localhost:5544/";
+            HttpSelfHostConfiguration config = new HttpSelfHostConfiguration(baseAddress);
+            config.Routes.MapHttpRoute("Kvs", "{controller}/{key}");
+
+            HttpSelfHostServer server = new HttpSelfHostServer(config);
+            server.OpenAsync().Wait();
+            Console.ReadKey();
+            server.CloseAsync().Wait();
         }
 
         public static string CreateMD5(string input)
@@ -31,23 +32,6 @@ namespace KeyValueStore
                     sb.Append(hashBytes[i].ToString("X2"));
                 }
                 return sb.ToString();
-            }
-        }
-
-        public static void Save(string key, string value)
-        {
-            string dir = string.Format("./keyvaluestore/{0}/{1}/", key.Substring(0,2), key.Substring(2,2));
-            string fileName = key;
-            string fullPath = dir + fileName;
-            string fullValue = value + Environment.NewLine;
-            try
-            {
-                File.WriteAllText(fullPath, fullValue);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Directory.CreateDirectory(dir);
-                File.WriteAllText(fullPath, fullValue);
             }
         }
     }
