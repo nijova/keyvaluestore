@@ -54,7 +54,6 @@
     <Compile Include="Controller.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
