@@ -11,10 +11,10 @@ namespace KeyValueStore
 
         }
 
-        public static void Put(string key, string value)
+        public static void Put(string keyHash, string value)
         {
-            string dir = Helpers.GetDir(key);
-            string fileName = key;
+            string dir = Helpers.GetDir(keyHash);
+            string fileName = keyHash;
             string fullPath = dir + fileName;
             string fullValue = value + Environment.NewLine;
             try

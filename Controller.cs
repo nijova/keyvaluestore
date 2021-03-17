@@ -13,9 +13,10 @@ namespace KeyValueStore
             // return BadRequest();
         }
 
-        public IHttpActionResult Put(string key)
+        public IHttpActionResult Put(string key, [FromBody]string value)
         {
             var keyHash = Helpers.CreateMD5(key);
+            Repository.Put(keyHash, value);
 
             return Ok("put " + key);
             // return BadRequest();
