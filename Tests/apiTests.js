@@ -30,12 +30,6 @@ async function testPUT() {
 
   const req = http.request(options, (res) => {
     console.log('PUT, statusCode:', res.statusCode);
-    res.on('data', async (data) => {
-      process.stdout.write(data);
-    });
-  });
-  req.on('error', (e) => {
-    console.error(e);
   });
   req.write(data)
   req.end();
@@ -53,12 +47,6 @@ async function testDELETE() {
 
   const req = http.request(options, (res) => {
     console.log('DELETE, statusCode:', res.statusCode);
-    res.on('data', async (data) => {
-      process.stdout.write(data);
-    });
-  });
-  req.on('error', (e) => {
-    console.error(e);
   });
   req.end();
   
