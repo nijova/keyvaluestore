@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace KeyValueStore
 {
@@ -8,26 +7,32 @@ namespace KeyValueStore
         public IHttpActionResult Get(string key)
         {
             var keyHash = Helpers.CreateMD5(key);
-
-            return Ok("got " + key);
-            // return BadRequest();
+            var entry = Repository.GetByKey(keyHash);
+            if (!string.IsNullOrWhiteSpace(entry))
+            {
+                return Ok(entry);
+            }
+            return NotFound();
         }
 
         public IHttpActionResult Put(string key, [FromBody]string value)
-        {
+        {   
             var keyHash = Helpers.CreateMD5(key);
-            Repository.Put(keyHash, value);
-
-            return Ok("put " + key);
-            // return BadRequest();
+            if (Repository.Put(keyHash, value))
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
         public IHttpActionResult Delete(string key)
         {
             var keyHash = Helpers.CreateMD5(key);
-
-            return Ok("deleted " + key);
-            // return BadRequest();
+            if (Repository.Delete(keyHash))
+            {
+                return Ok();
+            }
+            return NotFound();
         }
 
     }

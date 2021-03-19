@@ -1,36 +1,63 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace KeyValueStore
 {
     public static class Repository
     {
-
-        public static void GetByKey(string key)
-        {
-
-        }
-
-        public static void Put(string keyHash, string value)
+        public static string GetByKey(string keyHash)
         {
             string dir = Helpers.GetDir(keyHash);
             string fileName = keyHash;
             string fullPath = dir + fileName;
-            string fullValue = value + Environment.NewLine;
             try
             {
-                File.WriteAllText(fullPath, fullValue);
+                return File.ReadAllText(fullPath);
             }
-            catch (DirectoryNotFoundException)
+            catch
             {
-                Directory.CreateDirectory(dir);
-                File.WriteAllText(fullPath, fullValue);
+                return null;
             }
         }
 
-        public static void Delete(string key)
+        public static bool Put(string keyHash, string value)
         {
+            string dir = Helpers.GetDir(keyHash);
+            string fileName = keyHash;
+            string fullPath = dir + fileName;
+            try
+            {
+                File.WriteAllText(fullPath, value);
+                return true;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                try
+                {
+                    Directory.CreateDirectory(dir);
+                    File.WriteAllText(fullPath, value);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
 
+        public static bool Delete(string keyHash)
+        {
+            string dir = Helpers.GetDir(keyHash);
+            string fileName = keyHash;
+            string fullPath = dir + fileName;
+            try
+            {
+                File.Delete(fullPath);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
